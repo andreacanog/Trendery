@@ -24,9 +24,8 @@ class Product < ApplicationRecord
     private
   
     def ensure_photo
-      unless self.photo.attached?
+      unless photo.attached?
         errors.add(:photo, "must be attached")
       end
     end
 end
-  
