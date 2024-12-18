@@ -32,14 +32,14 @@ class User < ApplicationRecord
     # Ensure session token is set before validation
 
     def self.find_by_credentials(credential, password)
-        user = User.find_by(email: credential)
+        user = find_by(email: credential)
         user&.authenticate(password)
     end
       
    
     def reset_session_token!
-       self.update!(session_token: generate_unique_session_token)
-       self.session_token
+       update!(session_token: generate_unique_session_token)
+       session_token
     end
   
     private
@@ -47,12 +47,12 @@ class User < ApplicationRecord
     def generate_unique_session_token
         loop do
           token = SecureRandom.base64
-          break token unless User.exists?(session_token: token)
+          break token unless exists?(session_token: token)
         end
     end
   
     def ensure_session_token
-      self.session_token ||= self.class.generate_unique_session_token
+      self.session_token ||= generate_unique_session_token
     end
 end
   
