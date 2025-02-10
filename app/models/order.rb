@@ -28,10 +28,8 @@ class Order < ApplicationRecord
   validates :status, presence: true, inclusion: { in: %w[pending completed canceled] }
   validates :total, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
-
   def total
     order_items.sum { |item| item.price * item.quantity }
   end
 
 end
-
