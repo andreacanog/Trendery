@@ -35,7 +35,7 @@ class ApplicationController < ActionController::API
     end
 
     def current_cart
-      return nil unless logged_in?  # Ensure user is logged in
+      return nil unless logged_in?
       @current_cart ||= current_user.cart || current_user.create_cart
     end   
   
