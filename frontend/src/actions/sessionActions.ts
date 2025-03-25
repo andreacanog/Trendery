@@ -72,14 +72,21 @@ export const logoutUser = () => async (dispatch: Dispatch): Promise<void> => {
 };
 
 export const restoreSession = () => async (dispatch: Dispatch): Promise<void> => {
+    dispatch({ type: LOGIN_REQUEST });
+
     try {
         const response = await csrfFetch("/api/session");
         storeCSRFToken(response);
-
         const data = await response.json();
-        storeCurrentUser(data.user);
 
-        dispatch({ type: LOGIN_SUCCESS, payload: data.user });
+        if (data.user) {
+            storeCurrentUser(data.user);
+            dispatch({ type: LOGIN_SUCCESS, payload: data.user });
+            
+        } else {
+            storeCurrentUser(null);
+            dispatch({ type: REMOVE_CURRENT_USER });
+        }
 
     } catch (error: any) {
         dispatch({ type: LOGIN_FAILURE, payload: error.message });
