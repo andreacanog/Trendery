@@ -23,7 +23,7 @@ const Auth: React.FC = () => {
     if (session.user) {
         return (
         <div>
-            <h2>Welcome, {session.user.username}!</h2>
+            <h2>Welcome, {session.user.name}!</h2>
             <button onClick={() => dispatch(logoutUser())}>Logout</button>
         </div>
         );
