@@ -4,9 +4,15 @@ import {
   LOGIN_FAILURE,
   REMOVE_CURRENT_USER,
 } from "../actions/sessionActions";
+
+interface User {
+  id: number;
+  email: string;
+  name?: string;
+}
 interface SessionState {
   loading: boolean;
-  user: any;
+  user: User | null;
   error: string | null;
 }
 
@@ -21,9 +27,9 @@ const sessionReducer = (state = initialState, action: any): SessionState => {
     case LOGIN_REQUEST:
       return { ...state, loading: true, error: null };
     case LOGIN_SUCCESS:
-      return { ...state, loading: false, user: action.payload };
+      return { ...state, loading: false, user: action.payload, error: null };
     case LOGIN_FAILURE:
-      return { ...state, loading: false, error: action.payload };
+      return { ...state, loading: false, error: action.payload, user: null };
     case REMOVE_CURRENT_USER:
       return { ...state, user: null };
     default:
