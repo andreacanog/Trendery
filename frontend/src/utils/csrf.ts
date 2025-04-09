@@ -1,4 +1,6 @@
-type FetchOptions = RequestInit & { headers?: Record<string, string> };
+type FetchOptions = RequestInit & {
+  headers?: Record<string, string>;
+};
 
 async function csrfFetch(
   url: string,
