@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { restoreSession, logoutUser } from "../../actions/sessionActions";
-import Login from "../Login/login";
-import Signup from "../Signup/signup";
+import Login from "../Login/Login";
+import Signup from "../Signup/Signup";
 
 const Auth: React.FC = () => {
   const dispatch = useAppDispatch();
