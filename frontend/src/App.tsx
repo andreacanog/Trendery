@@ -1,30 +1,45 @@
 import React from "react";
 import "./App.css";
-import { Routes, Route, Navigate } from "react-router-dom";
-import Login from "./components/Login/login";
-import Signup from "./components/Signup/signup";
-import Dashboard from "./components/Dashboard/dashboard";
-import { useSelector } from "react-redux";
-import { RootState } from "./reducers/rootReducer";
+import { Routes, Route } from "react-router-dom";
+import Auth from "./components/Auth/Auth";
+import Dashboard from "./components/Dashboard/Dashboard";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import Home from "./components/Home/Home";
+import ProductDetail from "./components/Product/ProductDetail";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App: React.FC = () => {
-  const session = useSelector((state: RootState) => state.session);
-
   return (
-    <Routes>
-      {/* Public routes */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
+    <div className="App">
+      <Header />
+      <div className="main-content">
+        <Routes>
+          {/* Public routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/auth" element={<Auth />} />
 
-      {/* Protected route: */}
-      <Route
-        path="/dashboard"
-        element={session.user ? <Dashboard /> : <Navigate to="/login" />}
-      />
-
-      {/* Default redirect */}
-      <Route path="/" element={<Navigate to="/dashboard" />} />
-    </Routes>
+          {/* Protected routes */}
+          <Route
+            path="/products/:id"
+            element={
+              <ProtectedRoute>
+                <ProductDetail />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </div>
+      <Footer />
+    </div>
   );
 };
 
