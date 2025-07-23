@@ -5,29 +5,20 @@ import { signupUser } from "../../actions/sessionActions";
 const Signup: React.FC = () => {
   const dispatch = useAppDispatch();
   const session = useAppSelector((state) => state.session);
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(signupUser({ username, email, password, name }));
+    dispatch(signupUser({ email, name, password, username }));
   };
 
   return (
     <div>
       <h2>Signup</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username:</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
         <div>
           <label>Name:</label>
           <input
