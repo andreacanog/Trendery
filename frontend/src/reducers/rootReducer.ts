@@ -1,9 +1,8 @@
-import { combineReducers } from 'redux';
-import sessionReducer from './sessionReducer';
-
+import { combineReducers } from "redux";
+import sessionReducer from "./sessionReducer";
 
 export const rootReducer = combineReducers({
-    session: sessionReducer
+  session: sessionReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
